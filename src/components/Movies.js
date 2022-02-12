@@ -19,6 +19,7 @@ const Movies = () => {
   const [popularity, setPopularity] = useState(0);
 
   const [maxRows, setMaxRows] = useState(5);
+  const [search, setSearch] = useState("")
 
   // for getting and setting the genres
   useEffect(
@@ -80,6 +81,11 @@ const Movies = () => {
 
   filteredMovies = filteredMovies.slice(si, ei);
 
+  //searching
+  filteredMovies = filteredMovies.filter((movie) =>
+    movie.title.toLowerCase().includes(search.toLowerCase())
+  );
+
   return <>
 
     <div className='mt-4 px-2 flex justify-center flex-wrap space-x-2'>
@@ -95,6 +101,7 @@ const Movies = () => {
           onClick={
             () => {
               setCurrGenre(genre)
+              setPage(1);
             }
           }
           >
@@ -104,8 +111,8 @@ const Movies = () => {
       }
     </div>
     <div className='text-center'>
-      <input type="text" placeholder='Search' className='border-2 text-center p-1 m-2' />
-      <input type="number" placeholder='Rows' className='border-2 text-center p-1 m-2' />
+      <input type="text" placeholder='Search' onChange={(e) => setSearch(e.target.value)} className='border-2 text-center p-1 m-2' />
+      <input type="number" placeholder='Rows' onChange={(e) => setMaxRows(e.target.value)} className='border-2 text-center p-1 m-2' />
     </div>
 
     <div className="flex flex-col m-4">
@@ -220,7 +227,7 @@ const Movies = () => {
     <div className='mt-12'>
 
       {
-        filteredMovies.length >= maxRows && <Pagination page={page} goAhead={goAhead} goBack={goBack} maxMoviesPerPage={maxMoviesPerPage} className="z-1"/>
+        filteredMovies.length > 1 && <Pagination page={page} goAhead={goAhead} goBack={goBack} maxMoviesPerPage={maxMoviesPerPage} className="z-1"/>
       } 
     </div>
   </>;
