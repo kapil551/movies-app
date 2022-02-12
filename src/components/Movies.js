@@ -227,7 +227,7 @@ const Movies = () => {
     <div className='mt-12'>
 
       {
-        filteredMovies.length > 1 && <Pagination page={page} goAhead={goAhead} goBack={goBack} maxMoviesPerPage={maxMoviesPerPage} className="z-1"/>
+        filteredMovies.length > 1 && <Pagination page={page} goAhead={goAhead} goBack={goBack} maxMoviesPerPage={maxMoviesPerPage}/>
       } 
     </div>
   </>;

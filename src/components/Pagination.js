@@ -1,12 +1,11 @@
 import React from "react";
 
+import './Footer.css';
 const Pagination = ({ page, goAhead, goBack, maxMoviesPerPage }) => {
   return (
-    <>
+    <div className="footer">
       <div
-        className="w-full 
-    flex justify-center
-    mb-8
+        className="w-full flex justify-center mb-8
     "
       >
         
@@ -54,7 +53,7 @@ const Pagination = ({ page, goAhead, goBack, maxMoviesPerPage }) => {
             </button>
         }
       </div>
-    </>
+    </div>
   );
 };
 

@@ -1,5 +1,4 @@
 import './App.css';
-import Footer from './components/Footer';
 import Movies from './components/Movies';
 import Navbar from './components/Navbar';
 
@@ -10,7 +9,6 @@ function App() {
       {/*  */}
       <Navbar />
       <Movies />
-      <Footer />
     </div>
   );
 }
