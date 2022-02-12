@@ -15,6 +15,8 @@ const Movies = () => {
   const [page, setPage] = useState(1);
   const [genres, setGenres] = useState([]);
   const [currGenre, setCurrGenre] = useState('All Genres');
+  const [rating, setRating] = useState(0);
+  const [popularity, setPopularity] = useState(0);
 
   // for getting and setting the genres
   useEffect(
@@ -46,6 +48,28 @@ const Movies = () => {
   let filteredMovies = [];
 
   filteredMovies = currGenre == "All Genres" ? movies : movies.filter((movie) => genreIds[movie.genre_ids[0]] === currGenre);
+
+  // sorting based on rating
+  if (rating == 1) {
+    filteredMovies = filteredMovies.sort(function (objA, objB) {
+      return objA.vote_average - objB.vote_average;
+    })
+  } else if (rating == -1) {
+    filteredMovies = filteredMovies.sort(function (objA, objB) {
+      return objB.vote_average - objA.vote_average;
+    })
+  }
+
+  // sorting based on popularity
+  if (popularity == 1) {
+    filteredMovies = filteredMovies.sort(function (objA, objB) {
+      return objA.popularity - objB.popularity;
+    })
+  } else if (popularity == -1) {
+    filteredMovies = filteredMovies.sort(function (objA, objB) {
+      return objB.popularity - objA.popularity;
+    })
+  }
 
   return <>
 
@@ -94,10 +118,19 @@ const Movies = () => {
                   >
                     <div className='flex'>
                       <img src='https://img.icons8.com/external-those-icons-lineal-those-icons/24/000000/external-up-arrows-those-icons-lineal-those-icons-3.png' className='mr-2 cursor-pointer'
+                        onClick={() => {
+                          setPopularity(0)
+                          setRating(-1)
+                        }}
                       />
                       Rating
                       <img src='https://img.icons8.com/external-those-icons-lineal-those-icons/24/000000/external-down-arrows-those-icons-lineal-those-icons-4.png'
-                        className='ml-2 mr-2' />
+                        className='ml-2 mr-2' 
+                        onClick={() => {
+                          setPopularity(0)
+                          setRating(1)
+                        }}
+                        />
                     </div>
                   </th>
                   <th
@@ -106,9 +139,18 @@ const Movies = () => {
                   >
                     <div className='flex'>
                       <img src='https://img.icons8.com/external-those-icons-lineal-those-icons/24/000000/external-up-arrows-those-icons-lineal-those-icons-3.png'
-                        className='mr-2' />
+                        className='mr-2' 
+                        onClick={() => {
+                          setPopularity(-1)
+                          setRating(0)
+                        }}
+                        />
                       Popularity
                       <img src='https://img.icons8.com/external-those-icons-lineal-those-icons/24/000000/external-down-arrows-those-icons-lineal-those-icons-4.png' className='ml-2 mr-2'
+                        onClick={() => {
+                          setPopularity(1)
+                          setRating(0)
+                        }}
                       />
                     </div>
                   </th>
