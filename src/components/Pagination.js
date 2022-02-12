@@ -1,6 +1,6 @@
 import React from "react";
 
-const Pagination = ({ page, goAhead, goBack }) => {
+const Pagination = ({ page, goAhead, goBack, maxMoviesPerPage }) => {
   return (
     <>
       <div
@@ -9,19 +9,22 @@ const Pagination = ({ page, goAhead, goBack }) => {
     mb-8
     "
       >
-        <button
-          className="
-            p-2
-            border-2
-            border-gray-200
-            text-gray-500
-            border-r-0
-            rounded-l-xl
-          "
-          onClick={goBack}
-        >
-          Previous
-        </button>
+        
+        { page > 1 &&
+            <button
+            className="
+                p-2
+                border-2
+                border-gray-200
+                text-gray-500
+                border-r-0
+                rounded-l-xl
+            "
+            onClick={goBack}
+            >
+            Previous
+            </button>
+        }
         <button
           className="
             p-2
@@ -33,19 +36,23 @@ const Pagination = ({ page, goAhead, goBack }) => {
         >
           {page}
         </button>
-        <button
-          className="
-            p-2
-            border-2
-            border-gray-200
-            text-gray-500
-            border-l-0
-            rounded-r-xl
-            "
-            onClick={goAhead}
-        >
-          Next
-        </button>
+        
+        { 
+            page < maxMoviesPerPage && 
+            <button
+            className="
+                p-2
+                border-2
+                border-gray-200
+                text-gray-500
+                border-l-0
+                rounded-r-xl
+                "
+                onClick={goAhead}
+            >
+                Next
+            </button>
+        }
       </div>
     </>
   );

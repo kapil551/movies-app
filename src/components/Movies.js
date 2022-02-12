@@ -18,6 +18,8 @@ const Movies = () => {
   const [rating, setRating] = useState(0);
   const [popularity, setPopularity] = useState(0);
 
+  const [maxRows, setMaxRows] = useState(5);
+
   // for getting and setting the genres
   useEffect(
     () => {
@@ -70,6 +72,13 @@ const Movies = () => {
       return objB.popularity - objA.popularity;
     })
   }
+
+  // adding pagination
+  let maxMoviesPerPage = Math.ceil(filteredMovies.length / maxRows);
+  let si = (page - 1) * maxRows;
+  let ei = Number(si) + Number(maxRows);
+
+  filteredMovies = filteredMovies.slice(si, ei);
 
   return <>
 
@@ -208,10 +217,10 @@ const Movies = () => {
     {/* <div>Inputs Container</div> */}
     {/* <div>Table Container</div> */}
     {/* <div>Pagination</div> */}
-    <div className='mt-4'>
+    <div className='mt-12'>
 
       {
-        filteredMovies.length > 1 && <Pagination page={page} goAhead={goAhead} goBack={goBack} />
+        filteredMovies.length >= maxRows && <Pagination page={page} goAhead={goAhead} goBack={goBack} maxMoviesPerPage={maxMoviesPerPage} className="z-1"/>
       } 
     </div>
   </>;
