@@ -4,6 +4,6 @@
 
 @layer components {
     .navbar {
-        @apply bg-gray-200;
+        @apply shadow border-b border-gray-200 h-[3.6rem] w-screen;
     }
 }
