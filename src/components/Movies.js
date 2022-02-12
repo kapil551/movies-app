@@ -1,7 +1,25 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Pagination from './Pagination';
 
+import movies from '../data/movies';
+
 const Movies = () => {
+
+  const [page, setPage] = useState(1);
+
+  // console.log(movies);
+
+  function goAhead() {
+    setPage(page + 1);
+  }
+
+  function goBack() {
+
+    if (page > 1) {
+      setPage(page - 1);
+    }
+  }
+
   return <>
     <div className='text-center'>
       <input type="text" placeholder='Search' className='border-2 text-center p-1 m-2' />
@@ -69,7 +87,7 @@ const Movies = () => {
     {/* <div>Pagination</div> */}
     <div className='mt-4'>
 
-      <Pagination />
+      <Pagination page={page} goAhead={goAhead} goBack={goBack} />
     </div>
   </>;
 }

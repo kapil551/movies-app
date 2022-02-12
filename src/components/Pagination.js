@@ -1,6 +1,6 @@
 import React from "react";
 
-const Pagination = () => {
+const Pagination = ({ page, goAhead, goBack }) => {
   return (
     <>
       <div
@@ -17,8 +17,8 @@ const Pagination = () => {
             text-gray-500
             border-r-0
             rounded-l-xl
-        "
-
+          "
+          onClick={goBack}
         >
           Previous
         </button>
@@ -31,7 +31,7 @@ const Pagination = () => {
             bg-gray-200
             "
         >
-          {1}
+          {page}
         </button>
         <button
           className="
@@ -42,6 +42,7 @@ const Pagination = () => {
             border-l-0
             rounded-r-xl
             "
+            onClick={goAhead}
         >
           Next
         </button>
