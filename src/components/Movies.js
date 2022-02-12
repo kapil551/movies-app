@@ -1,11 +1,33 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Pagination from './Pagination';
 
 import movies from '../data/movies';
 
 const Movies = () => {
 
+  let genreIds = {
+    28: 'Action',
+    12: 'Adventure',
+    16: 'Animation', 35: 'Comedy', 80: 'Crime', 99: 'Documentary', 18: 'Drama', 10751: 'Family', 14: 'Fantasy', 36: 'History',
+    27: 'Horror', 10402: 'Music', 9648: 'Mystery', 10749: 'Romance', 878: 'Sci-Fi', 10770: 'TV', 53: 'Thriller', 10752: 'War', 37: 'Western'
+  }
+
   const [page, setPage] = useState(1);
+  const [genres, setGenres] = useState([]);
+  const [currGenre, setCurrGenre] = useState('All Genres');
+
+  // for getting and setting the genres
+  useEffect(
+    () => {
+      let allGenres = movies.map((movie) => genreIds[movie.genre_ids[0]]);
+      console.log(allGenres);
+
+      // to remove duplicate genres create a set
+      allGenres = new Set(allGenres);
+      setGenres(["All Genres", ...allGenres]);
+      console.log(genres);
+    }, []
+  )
 
   // console.log(movies);
 
@@ -21,6 +43,28 @@ const Movies = () => {
   }
 
   return <>
+
+    <div className='mt-4 px-2 flex justify-center flex-wrap space-x-2'>
+      {
+        genres.map((genre,index) =>
+          <button key={index} 
+                  className={
+                    currGenre == genre ?
+                      'm-2 text-lg p-1 px-2 bg-blue-500 text-white rounded-xl font-bold' :
+                      'm-2 text-lg p-1 px-2 bg-gray-400 hover:bg-blue-500 text-white rounded-xl font-bold'
+                  }
+
+          onClick={
+            () => {
+              setCurrGenre(genre)
+            }
+          }
+          >
+            {genre}
+          </button>
+        )
+      }
+    </div>
     <div className='text-center'>
       <input type="text" placeholder='Search' className='border-2 text-center p-1 m-2' />
       <input type="number" placeholder='Rows' className='border-2 text-center p-1 m-2' />
