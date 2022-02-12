@@ -42,6 +42,11 @@ const Movies = () => {
     }
   }
 
+  // filtered movies 
+  let filteredMovies = [];
+
+  filteredMovies = currGenre == "All Genres" ? movies : movies.filter((movie) => genreIds[movie.genre_ids[0]] === currGenre);
+
   return <>
 
     <div className='mt-4 px-2 flex justify-center flex-wrap space-x-2'>
@@ -117,10 +122,42 @@ const Movies = () => {
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
-                    Remove
+                    Release Date
                   </th>
                 </tr>
               </thead>
+              <tbody className="bg-white divide-y divide-gray-200">
+                {filteredMovies.map((movie) => (
+                  <tr key={movie.id}>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="flex items-center">
+                        <div className="flex-shrink-0 md:h-[100px] md:w-[180px]">
+                          <img className="hidden md:block md:h-[100px] md:w-[180px]" src={`https://image.tmdb.org/t/p/w500/${movie.backdrop_path}`} alt="" />
+                        </div>
+                        <div className="ml-4">
+                          <div className="text-sm font-medium text-gray-900 font-bold">{movie.title}</div>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="text-sm text-gray-900">{movie.vote_average}</div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="text-sm text-gray-900">{movie.popularity}</div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                        {genreIds[movie.genre_ids[0]]}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                        {movie.release_date}
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
             </table>
           </div>
         </div>
@@ -131,7 +168,9 @@ const Movies = () => {
     {/* <div>Pagination</div> */}
     <div className='mt-4'>
 
-      <Pagination page={page} goAhead={goAhead} goBack={goBack} />
+      {
+        filteredMovies.length > 1 && <Pagination page={page} goAhead={goAhead} goBack={goBack} />
+      } 
     </div>
   </>;
 }
